@@ -9,7 +9,7 @@
     "export": "nuxt export",
     "serve": "nuxt serve",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore",
+    "stylelint": "stylelint '**/*.{vue,scss,css}' --ignore-path .gitignore",
     "lint": "yarn lint:js && yarn lint:style"
   },
   "dependencies": {
@@ -17,7 +17,8 @@
     "@nuxtjs/svg": "^0.1.11",
     "nuxt": "^2.13.0",
     "nuxt-webfontloader": "^1.1.0",
-    "ress": "^2.0.4"
+    "ress": "^2.0.4",
+    "vue-prlx": "^1.3.4"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.0.0",
@@ -35,7 +36,11 @@
     "pug-plain-loader": "^1.0.0",
     "sass-loader": "^9.0.2",
     "stylelint": "^13.6.1",
-    "stylelint-config-prettier": "^8.0.1",
-    "stylelint-config-standard": "^20.0.0"
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-prettier": "^1.1.2",
+    "stylelint-scss": "^3.18.0"
   }
 }

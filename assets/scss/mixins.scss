@@ -1,0 +1,36 @@
+@mixin font($size: 16px, $color: $theme-crimson, $weight: null) {
+  overflow: hidden;
+  font-size: $size;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  @if $color != null {
+    color: $color;
+  }
+  @if $weight != null {
+    font-weight: $weight;
+  }
+}
+
+@mixin absolute($top: null, $left: null, $right: null, $bottom: null, $z: 0) {
+  position: absolute;
+  z-index: $z;
+  @if $top != null {
+    top: $top;
+  }
+  @if $right != null {
+    right: $right;
+  }
+  @if $bottom != null {
+    bottom: $bottom;
+  }
+  @if $left != null {
+    left: $left;
+  }
+}
+
+@mixin flex($wrap: nowrap, $justifyContent: center, $alignItems: center) {
+  display: flex;
+  flex-wrap: $wrap;
+  align-items: $alignItems;
+  justify-content: $justifyContent;
+}

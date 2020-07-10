@@ -29,12 +29,15 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['ress'],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: [
+    '@/plugins/mixin-common-methods',
+    { src :'~/plugins/vue-prlx', ssr: false },
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -49,13 +52,58 @@ export default {
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module',
   ],
+  stylelint: {
+    fix: true,
+  },
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: [
+    '@nuxtjs/style-resources',
+    'nuxt-webfontloader',
+    '@nuxtjs/svg'
+  ],
+  styleResources: {
+    scss: [
+      '~/assets/scss/variables.scss',
+      '~/assets/scss/zindex.scss',
+      '~/assets/scss/mixins.scss',
+    ],
+  },
+  webfontloader: {
+    // add Google Fonts as "custom" | workaround required
+    custom: {
+      families: ['Sawarabi Mincho'],
+      urls: [
+        'https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap',
+      ],
+    },
+  },
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {},
+  build: {
+    /*
+     ** You can extend webpack config here
+    */
+    postcss: {
+      preset: {
+        autoprefixer: { grid: 'autoplace' }
+      }
+    },
+    extend(config, ctx) {
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/,
+          options: {
+            fix: true,
+          },
+        })
+      }
+    },
+  },
 }
