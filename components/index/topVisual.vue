@@ -5,11 +5,11 @@
       img(src="~/assets/img/yoko.png").logo
       .logo-text ヴァン・ドゥ
     .top-background
-      img(
+      .top-background-img(
         ref="topBGImg"
         src="~/assets/img/background.png"
-        :style="`object-position: 50% ${objPosY}%;`"
-      ).top-background-img
+        :style="`background-position: 50% ${objPosY}%;`"
+      )
 </template>
 <script>
 export default {
@@ -24,11 +24,10 @@ export default {
   methods: {
     calculateScrollY() {
       const scrollY = document.body.scrollTop;
-      const ch = this.$refs.topBGImg.clientHeight
       const rect = this.$refs.topBGImg.getBoundingClientRect();
-      const y = rect.top + scrollY
-      const bottom = ch + y
-      this.objPosY = scrollY / bottom * 100
+      const height = this.$refs.topBGImg.clientHeight
+      const bottomY = height + rect.top + scrollY
+      this.objPosY = scrollY / bottomY * 100
     }
   }
 }
@@ -70,8 +69,23 @@ export default {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: 50% 0%;
-  overflow: hidden;
+  background: no-repeat url('~assets/img/background.png');
+  background-position: 50% 50%;
+  background-size: cover;
+}
+@media screen and (max-width: 1240px) {
+  .top-background {
+    height: 500px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .top-background {
+    height: 400px;
+  }
+}
+@media screen and (max-width: 860px) {
+  .logo {
+    width: 80%;
+  }
 }
 </style>

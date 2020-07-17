@@ -1,3 +1,6 @@
+require('dotenv').config()
+const { APIKEY } = process.env
+
 export default {
   /*
    ** Nuxt rendering mode
@@ -59,9 +62,11 @@ export default {
    ** Nuxt.js modules
    */
   modules: [
+    '@nuxtjs/dotenv',
     '@nuxtjs/style-resources',
     'nuxt-webfontloader',
-    '@nuxtjs/svg'
+    '@nuxtjs/svg',
+    '@nuxtjs/axios',
   ],
   styleResources: {
     scss: [
@@ -106,4 +111,7 @@ export default {
       }
     },
   },
+  env: {
+    APIKEY
+  }
 }

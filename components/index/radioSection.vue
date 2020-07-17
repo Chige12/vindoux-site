@@ -3,17 +3,62 @@
     .radio-logo
       img(src="~/assets/img/radio_logo.png").radio-logo-img
     .radio-visual
-      img(src="~/assets/svg/radio.svg").radio-visual-img
       .nami-1.nami
       .nami-2.nami
+      img(src="~/assets/svg/radio.svg").radio-visual-img
     .radio-text
       p Vin doux がお届けする雑談ラヂオ番組
-      p 毎週日曜日 午後9時30分
-        a.youtube-link(href="") Youtubeにて配信中！
+      p 
+        span.time 毎週日曜日 午後9時30分
+        a.youtube-link(href="https://www.youtube.com/channel/UC8lDjomPUeC-LV_nIAJxZnQ") Youtubeにて配信中！
           img(src="~/assets/img/channel.png").channel-balloon
-    .radio-youtube
-      .radio-youtube-list
+    .radio-youtube(v-if="videos")
+      .radio-youtube-container
+        .radio-youtube-list
+          .video(v-for="video in videos")
+            a(:href="`https://www.youtube.com/watch?v=${video.id.videoId}`").video-link
+              img(:src="video.snippet.thumbnails.medium.url").video-img
+            .video-text-wrapfix
+              .video-text {{publishedAt(video.snippet.publishedAt)}}<br>{{ video.snippet.title }}
 </template>
+<script>
+export default {
+  data() {
+    return {
+      results: [],
+      apikey: process.env.APIKEY
+    }
+  },
+  computed: {
+    videos() {
+      return this.results.slice(0, 3)
+    }
+  },
+  mounted() {
+    const baseUrl = 'https://www.googleapis.com/youtube/v3/search'
+    const params = {
+      key: this.apikey,
+      part: 'snippet',
+      channelId: 'UC8lDjomPUeC-LV_nIAJxZnQ',
+      maxResults: 50,
+      type: 'video',
+      order: 'date'
+    }
+    this.$axios.$get(baseUrl, { params })
+      .then((res) => {
+        this.results = res.items
+      })
+      .catch((error) => {
+        console.log('ERROR!', error)
+      });
+  },
+  methods: {
+    publishedAt(at) {
+      return at.split('T')[0].replace(/-/g, '/')
+    }
+  }
+}
+</script>
 <style lang="scss" scoped>
 .radio-section {
   width: 100%;
@@ -30,6 +75,7 @@
 }
 .radio-visual {
   position: relative;
+  z-index: 1;
   padding: 24px 0;
   .radio-visual-img {
     display: block;
@@ -37,7 +83,7 @@
     margin: auto;
   }
   .nami {
-    @include absolute($top: 42px, $bottom: 0, $left: 0);
+    @include absolute($top: 42px, $bottom: 0, $left: 0, $z: -1);
     width: 100%;
     margin: auto;
     &-1 {
@@ -98,10 +144,151 @@
     &:hover {
       color: $theme-light-yellow;
       border-bottom: 1px solid $theme-light-yellow;
+      .channel-balloon {
+        transform: rotate(4deg);
+      }
     }
     .channel-balloon {
-      @include absolute($top: -110px, $right: -120px, $z: 1);
+      @include absolute($top: -104px, $right: -118px, $z: 1);
       width: 162px;
+      transform-origin: 30% 100%;
+      transition: 0.4s $ease-out;
+    }
+  }
+}
+
+.radio-youtube {
+  position: relative;
+  width: 100%;
+  height: 88px;
+  margin-top: 64px;
+}
+.radio-youtube-container {
+  @include absolute($top: 0, $left: 0, $right: 0);
+  width: 1024px;
+  margin: 0 auto;
+}
+.radio-youtube-list {
+  @include flex();
+  margin: 0 -16px;
+  .video {
+    position: relative;
+    width: 320px;
+    height: 180px;
+    margin: 0 16px;
+    margin-bottom: 32px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba($theme-red-shadow, 0.6);
+    transition: 0.3s $ease-out;
+    &:hover {
+      transform: scale(1.04);
+      .video-img {
+        transform: scale(1.04);
+      }
+      .video-text-wrapfix {
+        opacity: 1;
+      }
+    }
+  }
+  .video-link {
+    display: block;
+  }
+  .video-img {
+    display: block;
+    width: 100%;
+    transition: 0.3s $ease-out;
+  }
+  .video-text-wrapfix {
+    @include absolute($top: 0, $bottom: 0, $left: 0);
+    width: 100%;
+    height: 100%;
+    background: rgba($theme-crimson, 0.8);
+    opacity: 0;
+    transition: 0.5s $ease-out;
+    pointer-events: none;
+  }
+  .video-text {
+    @include absolute($top: 0, $bottom: 0, $left: 0);
+    display: inline-block;
+    width: 100%;
+    height: min-content;
+    margin: auto;
+    padding: 8px 16px;
+    @include font($color: $theme-light-gray);
+  }
+}
+
+@media screen and (max-width: 1240px) {
+  .radio-youtube {
+    height: auto;
+    margin-bottom: -120px;
+  }
+  .radio-youtube-container {
+    position: initial;
+    width: 100%;
+  }
+  .radio-youtube-list {
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .radio-youtube {
+    height: auto;
+    margin-bottom: -120px;
+  }
+  .radio-youtube-container {
+    position: initial;
+    width: 100%;
+  }
+  .radio-youtube-list {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 860px) {
+  .radio-text {
+    .time {
+      display: block;
+      margin-bottom: 20px;
+    }
+    .youtube-link {
+      margin: 0;
+      .channel-balloon {
+        top: -60px;
+        right: -180px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 620px) {
+  .radio-text {
+    .time {
+      margin-bottom: 120px;
+    }
+    .youtube-link {
+      margin: 0;
+      .channel-balloon {
+        top: -104px;
+        right: 0;
+        left: 0;
+        width: 164px;
+        margin: auto;
+      }
+    }
+  }
+  .radio-logo {
+    .radio-logo-img {
+      width: 100%;
+      height: auto;
+      padding: 0 20px;
+    }
+  }
+  .radio-youtube-list {
+    .video {
+      width: 100%;
+      height: auto;
     }
   }
 }

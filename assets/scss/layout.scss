@@ -1,13 +1,14 @@
 html {
   box-sizing: border-box;
   height: 100vh;
+  overflow: hidden;
   font-family: $sawarabi-font;
-  @include font($size: 16px, $color: $theme-crimson);
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-feature-settings: 'pkna';
+  @include font($size: 16px, $color: $theme-crimson);
 }
 
 *,
