@@ -73,6 +73,11 @@ export default {
   background-position: 50% 50%;
   background-size: cover;
 }
+@media screen and (max-width: 1640px) {
+  .top-background {
+    height: 600px;
+  }
+}
 @media screen and (max-width: 1240px) {
   .top-background {
     height: 500px;
@@ -84,6 +89,14 @@ export default {
   }
 }
 @media screen and (max-width: 860px) {
+  .top-background {
+    height: 300px;
+    &::before {
+      top: -12px;
+      height: 24px;
+      background-size: 64px 24px;
+    }
+  }
   .logo {
     width: 80%;
   }

@@ -264,17 +264,25 @@ export default {
 }
 @media screen and (max-width: 620px) {
   .radio-text {
+    font-size: 18px;
     .time {
       margin-bottom: 120px;
+      font-size: 24px;
     }
     .youtube-link {
       margin: 0;
+      &:hover {
+        .channel-balloon {
+          transform: rotate(0deg);
+        }
+      }
       .channel-balloon {
         top: -104px;
         right: 0;
-        left: 0;
+        left: 20px;
         width: 164px;
         margin: auto;
+        transform: rotate(-6deg);
       }
     }
   }
@@ -289,6 +297,16 @@ export default {
     .video {
       width: 100%;
       height: auto;
+    }
+    .video-text-wrapfix {
+      @include absolute($top: unset, $bottom: 0, $left: 0);
+      background-color: transparent;
+      opacity: 1;
+    }
+    .video-text {
+      @include absolute($top: unset, $bottom: 0, $left: 0);
+      font-size: 13px;
+      background: rgba(darken($theme-crimson, 20%), 0.8);
     }
   }
 }
