@@ -17,15 +17,48 @@ export default {
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Vindoux 公式サイト',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || '',
+        content: 'ユニット『Vin doux』がお届けする、雑談ラヂオ番組公式サイト。毎週日曜日、午後9時30分にYouTubeにて配信予定。今宵も私たちにほろ酔いなさいな🍷 本ラヂオへのお便りはTwitterにて #甘口便り を付けて呟いて下さいね。',
       },
+      {
+        hid: 'og:site_name',
+        property: 'og:site_name',
+        content: 'Vindoux 公式サイト'
+      },
+      {
+        hid: 'og:type',
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        hid: 'og:url',
+        property: 'og:url',
+        content: 'https://vindoux.netlify.app'
+      },
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'Vindoux 公式サイト'
+      },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content:
+          'ユニット『Vin doux』がお届けする、雑談ラヂオ番組公式サイト。毎週日曜日、午後9時30分にYouTubeにて配信予定。今宵も私たちにほろ酔いなさいな🍷 本ラヂオへのお便りはTwitterにて #甘口便り を付けて呟いて下さいね。'
+      },
+      {
+        hid: 'og:image',
+        property: 'og:image',
+        content: 'https://vindoux.netlify.app/OGP.png'
+      },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:site', content: '@iburigackoTOAK' }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
