@@ -93,11 +93,11 @@ ruby > rt {
   text-align: center;
   &.hiwa {
     padding-top: 138px;
-    @include font($size: 36px, $color: $theme-crimson);
+    @include font($size: 48px, $color: $theme-crimson);
   }
   &.rara {
     padding-top: 286px;
-    @include font($size: 36px, $color: $theme-white);
+    @include font($size: 48px, $color: $theme-white);
   }
 }
 .column-text {
@@ -109,20 +109,31 @@ ruby > rt {
   &.hiwa {
     padding-top: 120px;
     padding-left: 8px;
-    @include font($size: 18px, $color: $theme-crimson);
+    @include font($size: 22px, $color: $theme-crimson);
   }
   &.rara {
     padding-top: 250px;
     padding-right: 10px;
     text-align: right;
-    @include font($size: 18px, $color: $theme-white);
+    @include font($size: 22px, $color: $theme-white);
     p {
       margin-left: auto;
     }
   }
 }
 
-
+@media screen and (max-width: 1240px) {
+  .column-name {
+    &.hiwa, &.rara {
+      font-size: 36px;
+    }
+  }
+  .column-text {
+    &.hiwa, &.rara {
+      font-size: 20px;
+    }
+  }
+}
 @media screen and (max-width: 860px) {
   .introduction {
     &::before {
