@@ -4,6 +4,7 @@
       TopVisual
       RadioSection
       Introduction
+      Twitter
     footer
       p.copy &copy; Copyright Vindoux All rights reserved.
 </template>
@@ -12,12 +13,14 @@
 import TopVisual from '~/components/index/topVisual.vue'
 import RadioSection from '~/components/index/radioSection.vue'
 import Introduction from '~/components/index/introduction.vue'
+import Twitter from '~/components/index/twitter.vue'
 
 export default {
   components: {
     TopVisual,
     RadioSection,
-    Introduction
+    Introduction,
+    Twitter
   }
 }
 </script>

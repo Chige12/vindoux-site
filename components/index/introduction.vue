@@ -1,5 +1,5 @@
 <template lang="pug">
-  .introduction
+  section.introduction
     .introduction-wrapper
       img(src="~assets/svg/white_back.svg").back-svg
       .column-wrapper
