@@ -22,39 +22,75 @@
               .video-text {{publishedAt(video.snippet.publishedAt)}}<br>{{ video.snippet.title }}
 </template>
 <script>
+import {uniqBy, sortBy} from 'lodash';
+import firstJson from '~/assets/first.json'
+
 export default {
   data() {
     return {
-      results: [],
       apikey: process.env.APIKEY
     }
   },
   computed: {
     videos() {
-      return this.results.slice(0, 3)
+      return this.$store.state.videoList.slice(0, 3)
     }
   },
   mounted() {
-    const baseUrl = 'https://www.googleapis.com/youtube/v3/search'
-    const params = {
-      key: this.apikey,
-      part: 'snippet',
-      channelId: 'UC8lDjomPUeC-LV_nIAJxZnQ',
-      maxResults: 30,
-      type: 'video',
-      order: 'date'
-    }
-    this.$axios.$get(baseUrl, { params })
-      .then((res) => {
-        this.results = res.items
-      })
-      .catch((error) => {
-        console.log('ERROR!', error)
-      });
+    setTimeout(() => {this.firstLoad()}, 0)
   },
   methods: {
+    firstLoad(){
+      const today = new Date
+      this.mergeVideoList(firstJson.items)
+      const stateDate = this.$store.state.date
+      if(stateDate !== null) {
+        // 更新日 毎週日曜日 午後9時30分
+        const lastDate = new Date(stateDate)
+        const thisYear = today.getFullYear();
+        const thisMonth = today.getMonth();
+        const date = today.getDate();
+        const dayNum = today.getDay();
+        const lastSundayDate = (date - dayNum)
+        const lastSunday = new Date(thisYear, thisMonth, lastSundayDate, 21, 30, 0);
+        if( lastDate <= lastSunday && lastSunday < today){
+          // 前回アクセスが更新日前 & 更新日を過ぎている
+          this.getVideoList(3)
+        }else if(this.$store.state.videoList.length === 0){
+          this.getVideoList(3)
+        }
+      } else {
+        this.getVideoList(20)
+      }
+      this.$store.commit('updateDate', today)
+    },
     publishedAt(at) {
       return at.split('T')[0].replace(/-/g, '/')
+    },
+    getVideoList(maxResults) {
+      const baseUrl = 'https://www.googleapis.com/youtube/v3/search'
+      const params = {
+        key: this.apikey,
+        part: 'snippet',
+        channelId: 'UC8lDjomPUeC-LV_nIAJxZnQ',
+        maxResults,
+        type: 'video',
+        order: 'date'
+      }
+      this.$axios.$get(baseUrl, { params })
+        .then((res) => {
+          this.mergeVideoList(res.items)
+        })
+        .catch((error) => {
+          console.log('ERROR!', error)
+          console.log(JSON.parse(error.request.response).error)
+        });
+    },
+    mergeVideoList(arr){
+      const videoList = [...arr, ...this.$store.state.videoList]
+      const mergedList = uniqBy(videoList, 'id.videoId')
+      const sortedList = sortBy(mergedList, [function(o) { return o.snippet.publishedAt; }]).reverse()
+      this.$store.commit('setVideoList', sortedList)
     }
   }
 }
