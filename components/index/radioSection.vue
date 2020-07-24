@@ -12,7 +12,7 @@
         span.time 毎週日曜日 午後9時30分
         a.youtube-link(href="https://www.youtube.com/channel/UC8lDjomPUeC-LV_nIAJxZnQ") Youtubeにて配信中！
           img(src="~/assets/img/channel.png").channel-balloon
-    .radio-youtube(v-if="videos")
+    .radio-youtube(v-if="videos.length !== 0")
       .radio-youtube-container
         .radio-youtube-list
           .video(v-for="video in videos")
@@ -40,7 +40,7 @@ export default {
       key: this.apikey,
       part: 'snippet',
       channelId: 'UC8lDjomPUeC-LV_nIAJxZnQ',
-      maxResults: 50,
+      maxResults: 30,
       type: 'video',
       order: 'date'
     }
@@ -236,6 +236,7 @@ export default {
 @media screen and (max-width: 1024px) {
   .radio-youtube {
     height: auto;
+    min-height: 48px;
     margin-bottom: -120px;
   }
   .radio-youtube-container {
