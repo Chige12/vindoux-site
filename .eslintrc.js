@@ -9,5 +9,7 @@ module.exports = {
   },
   extends: ['@nuxtjs', 'prettier', 'prettier/vue', 'plugin:nuxt/recommended'],
   // add your custom rules here
-  rules: {},
+  rules: {
+    'no-irregular-whitespace': ["error", {"skipTemplates": true}]
+  },
 }
