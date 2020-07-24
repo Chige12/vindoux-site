@@ -14,6 +14,7 @@
             resize="true"
             fitParent="true"
             style="width: 100%; height: 100%;"
+            :player-vars="playerVars"
           )
         .close-btn
           button(@click="videoPlayerClose()") ✕ CLOSE
@@ -26,7 +27,10 @@ export default {
   },
   data() {
     return {
-      isVideoPlayerOpened: false
+      isVideoPlayerOpened: false,
+      playerVars: {
+        'origin': location.protocol + '//' + location.hostname + "/"
+      }
     }
   },
   methods: {

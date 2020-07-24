@@ -52,13 +52,14 @@ ruby > rt {
   margin: auto;
 }
 .top-inner-shift {
-  margin-top: -110px;
+  margin-top: -118px;
 }
 .back-svg {
   display: block;
   width: 100%;
   height: 450px;
   object-fit: cover;
+  object-position: 50% 0%;
 }
 .column-wrapper {
   @include absolute($top: 0, $left: 0, $right: 0);
