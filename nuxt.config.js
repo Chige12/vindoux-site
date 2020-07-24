@@ -71,6 +71,7 @@ export default {
    ** https://nuxtjs.org/guide/plugins
    */
   plugins: [
+    '@/plugins/vue-youtube',
     '@/plugins/mixin-common-methods',
     { src :'~/plugins/vue-prlx', ssr: false },
   ],
