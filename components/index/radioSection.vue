@@ -1,5 +1,5 @@
 <template lang="pug">
-  .radio-section
+  section.radio-section
     .radio-logo
       img(src="~/assets/img/radio_logo.png").radio-logo-img
     .radio-visual
