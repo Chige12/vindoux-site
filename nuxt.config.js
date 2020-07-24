@@ -87,6 +87,9 @@ export default {
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module',
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-114375722-5'
+    }]
   ],
   stylelint: {
     fix: true,
