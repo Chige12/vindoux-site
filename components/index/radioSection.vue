@@ -50,6 +50,7 @@ export default {
       })
       .catch((error) => {
         console.log('ERROR!', error)
+        console.log(JSON.parse(error.request.response).error)
       });
   },
   methods: {
