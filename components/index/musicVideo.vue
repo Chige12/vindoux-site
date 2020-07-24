@@ -11,8 +11,8 @@
           youtube(
             ref="youtube"
             video-id="_DoFF3EadJ0"
-            resize="true"
-            fitParent="true"
+            :resize="true"
+            :fitParent="true"
             style="width: 100%; height: 100%;"
             :player-vars="playerVars"
           )
